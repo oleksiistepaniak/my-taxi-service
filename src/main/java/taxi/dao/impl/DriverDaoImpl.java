@@ -1,4 +1,4 @@
-package taxi.dao;
+package taxi.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import taxi.dao.DriverDao;
 import taxi.exception.DataProcessingException;
 import taxi.lib.Dao;
 import taxi.model.Driver;
@@ -119,17 +120,12 @@ public class DriverDaoImpl implements DriverDao {
     }
 
     private Driver parseDriverFromResultSet(ResultSet resultSet) throws SQLException {
-        Long id = resultSet.getObject("id", Long.class);
-        String name = resultSet.getString("name");
-        String licenseNumber = resultSet.getString("license_number");
-        String login = resultSet.getString("login");
-        String password = resultSet.getString("password");
         Driver driver = new Driver();
-        driver.setId(id);
-        driver.setName(name);
-        driver.setLicenseNumber(licenseNumber);
-        driver.setLogin(login);
-        driver.setPassword(password);
+        driver.setId(resultSet.getObject("id", Long.class));
+        driver.setName(resultSet.getString("name"));
+        driver.setLicenseNumber(resultSet.getString("license_number"));
+        driver.setLogin(resultSet.getString("login"));
+        driver.setPassword(resultSet.getString("password"));
         return driver;
     }
 }
